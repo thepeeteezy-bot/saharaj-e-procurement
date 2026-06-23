@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="th">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ระบบใบสั่งซื้อ–สั่งจ้าง | โรงเรียนสหราษฎร์รังสฤษดิ์</title>
+  <meta name="description" content="ระบบใบสั่งซื้อและใบสั่งจ้าง งานพัสดุ โรงเรียนสหราษฎร์รังสฤษดิ์">
+  <link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <div class="school-brand">
+        <img
+          src="assets/images/school-logo.png"
+          alt="ตราโรงเรียนสหราษฎร์รังสฤษดิ์"
+          class="school-logo"
+        >
+        <div class="school-brand-text">
+          <p class="eyebrow">งานพัสดุ</p>
+          <h1>โรงเรียนสหราษฎร์รังสฤษดิ์</h1>
+          <p class="subtitle">ระบบใบสั่งซื้อ–สั่งจ้างออนไลน์</p>
+        </div>
+      </div>
+      <a class="button button-outline" href="records.html">ดูรายการเอกสาร</a>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="hero panel orange-minimal-hero">
+      <div class="hero-copy">
+        <span class="badge">E-PROCUREMENT</span>
+        <h2>ระบบงานพัสดุโรงเรียน</h2>
+        <p>จัดทำใบสั่งซื้อและใบสั่งจ้างออนไลน์อย่างเป็นระบบ ใช้งานง่าย ตรวจสอบข้อมูลย้อนหลังได้สะดวก</p>
+      </div>
+    </section>
+
+    <section class="menu-grid" aria-label="เมนูหลัก">
+      <a class="menu-card" href="purchase.html">
+        <span class="menu-icon" aria-hidden="true">🛒</span>
+        <span>
+          <strong>ใบสั่งซื้อ</strong>
+          <small>บันทึกการจัดซื้อวัสดุ ครุภัณฑ์ และรายการพัสดุ</small>
+        </span>
+        <span class="arrow" aria-hidden="true">→</span>
+      </a>
+
+      <a class="menu-card" href="hire.html">
+        <span class="menu-icon" aria-hidden="true">🧰</span>
+        <span>
+          <strong>ใบสั่งจ้าง</strong>
+          <small>บันทึกการจ้างงาน ซ่อมแซม บริการ และงานเหมาจ้าง</small>
+        </span>
+        <span class="arrow" aria-hidden="true">→</span>
+      </a>
+    </section>
+
+
+    <section class="panel recent-panel" aria-labelledby="recentTitle">
+      <div class="recent-heading">
+        <div>
+          <span class="badge">RECENT DOCUMENTS</span>
+          <h3 id="recentTitle">รายการที่บันทึกแล้วล่าสุด</h3>
+          <p class="muted">แสดงข้อมูลล่าสุดจาก Google Sheet จำนวนไม่เกิน 8 รายการ</p>
+        </div>
+        <a class="button button-secondary" href="records.html">ดูรายการทั้งหมด</a>
+      </div>
+
+      <div id="homeRecordsMessage" class="message" hidden></div>
+
+      <div class="table-wrap recent-table-wrap">
+        <table class="recent-table">
+          <thead>
+            <tr>
+              <th>เลขที่</th>
+              <th>วันที่</th>
+              <th>เรื่อง</th>
+              <th class="align-right">จำนวนเงิน</th>
+              <th>สถานประกอบการ</th>
+              <th>เลขผู้เสียภาษี</th>
+              <th>ฝ่ายงานที่รับผิดชอบ</th>
+              <th>เลขที่โครงการ</th>
+            </tr>
+          </thead>
+          <tbody id="homeRecordsBody">
+            <tr>
+              <td colspan="8" class="empty-state">กำลังโหลดรายการ…</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="records-summary">
+        <span id="homeRecordCount">0 รายการ</span>
+        <span id="homeRecordTotal">รวม 0.00 บาท</span>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">ระบบงานพัสดุ โรงเรียนสหราษฎร์รังสฤษดิ์</div>
+  </footer>
+
+  <script src="assets/config.js"></script>
+  <script src="assets/home.js"></script>
+</body>
+</html>
