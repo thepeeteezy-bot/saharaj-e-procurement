@@ -6,12 +6,46 @@
   const submitButton = document.getElementById("submitButton");
   const API_URL = window.APP_CONFIG?.API_URL || "";
 
+  const pad2 = (value) => String(value).padStart(2, "0");
+
+  const formatThaiDate = (date) => {
+    return `${pad2(date.getDate())}/${pad2(date.getMonth() + 1)}/${date.getFullYear() + 543}`;
+  };
+
+  const parseThaiDate = (value) => {
+    const match = String(value || "").trim().match(/^(\d{1,2})\/(\d{1,2})\/(\d{4})$/);
+    if (!match) return null;
+
+    const day = Number(match[1]);
+    const month = Number(match[2]);
+    const buddhistYear = Number(match[3]);
+    const gregorianYear = buddhistYear - 543;
+
+    if (
+      buddhistYear < 2400 ||
+      month < 1 || month > 12 ||
+      day < 1 || day > 31
+    ) {
+      return null;
+    }
+
+    const date = new Date(gregorianYear, month - 1, day);
+
+    if (
+      date.getFullYear() !== gregorianYear ||
+      date.getMonth() !== month - 1 ||
+      date.getDate() !== day
+    ) {
+      return null;
+    }
+
+    return `${pad2(day)}/${pad2(month)}/${buddhistYear}`;
+  };
+
   const setToday = () => {
     const dateInput = form.elements.date;
     if (!dateInput.value) {
-      const now = new Date();
-      const local = new Date(now.getTime() - now.getTimezoneOffset() * 60000);
-      dateInput.value = local.toISOString().slice(0, 10);
+      dateInput.value = formatThaiDate(new Date());
     }
   };
 
@@ -46,6 +80,16 @@
         return false;
       }
     }
+
+    const normalizedDate = parseThaiDate(form.elements.date.value);
+    if (!normalizedDate) {
+      form.elements.date.setAttribute("aria-invalid", "true");
+      form.elements.date.focus();
+      showMessage("กรุณากรอกวันที่ในรูปแบบ วัน/เดือน/พ.ศ. เช่น 23/06/2569", "error");
+      return false;
+    }
+
+    form.elements.date.value = normalizedDate;
 
     const amount = Number(form.elements.amount.value);
     if (!Number.isFinite(amount) || amount < 0) {

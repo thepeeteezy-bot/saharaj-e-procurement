@@ -28,13 +28,23 @@
 
   const formatDate = (value) => {
     if (!value) return "";
-    const date = new Date(`${String(value).slice(0, 10)}T00:00:00`);
-    if (Number.isNaN(date.getTime())) return String(value);
-    return new Intl.DateTimeFormat("th-TH", {
-      day: "2-digit",
-      month: "2-digit",
-      year: "numeric"
-    }).format(date);
+
+    const text = String(value).trim();
+
+    const thaiMatch = text.match(/^(\d{1,2})\/(\d{1,2})\/(\d{4})$/);
+    if (thaiMatch) {
+      return `${String(thaiMatch[1]).padStart(2, "0")}/${String(thaiMatch[2]).padStart(2, "0")}/${thaiMatch[3]}`;
+    }
+
+    const isoMatch = text.match(/^(\d{4})-(\d{2})-(\d{2})/);
+    if (isoMatch) {
+      return `${isoMatch[3]}/${isoMatch[2]}/${Number(isoMatch[1]) + 543}`;
+    }
+
+    const date = new Date(text);
+    if (Number.isNaN(date.getTime())) return text;
+
+    return `${String(date.getDate()).padStart(2, "0")}/${String(date.getMonth() + 1).padStart(2, "0")}/${date.getFullYear() + 543}`;
   };
 
   const showMessage = (text, type = "error") => {
@@ -141,7 +151,7 @@
       ["เลขที่", "วันที่", "เรื่อง", "จำนวนเงิน", "สถานประกอบการ", "เลขผู้เสียภาษี", "ฝ่ายงานที่รับผิดชอบ", "เลขที่โครงการ"],
       ...visible.map((item) => [
         item.document_no,
-        item.date,
+        formatDate(item.date),
         item.subject,
         item.amount,
         item.vendor,
